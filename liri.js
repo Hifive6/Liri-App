@@ -73,8 +73,9 @@ request(bandUrl, function(error, response, body){
     
     if(!error && response.statusCode === 200){
         var artistInfo = JSON.parse(body);
-        console.log(artistInfo);
-
+        console.log(`
+        Location:      ${artistInfo[0]['venue']['city']}, ${artistInfo[0]['venue']['region']}, ${artistInfo[0]['venue']['country']}
+        `)
     }
 })
 
