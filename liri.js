@@ -5,14 +5,17 @@ require("dotenv").config();
 var request = require("request");
 var inputString = process.argv;
 var operand = inputString[2];
-var userInput = inputString[3]
+var userInput = inputString[3];
+
 
 var inputName = "";
-for(var i=2; i< userInput.length; i++){
-    if (i > 2 && i < userInput.length){
+for(var i=0; i< userInput.length; i++){
+    if (i > 3 && i < userInput.length){
         inputName = inputName + "+" + userInput[i];
+        
     }else{
         inputName += userInput[i];
+        
     }
 }
 
@@ -29,7 +32,7 @@ request(movieUrl, function(error, response, body){
     
     if(!error && response.statusCode === 200){
         var movieInfo = JSON.parse(body);
-        if (!inputName){
+        if (inputName == false){
             nobodyUrl = "http://www.omdbapi.com/?t=mr+nobody&y=&plot=short&apikey=trilogy"
             request(nobodyUrl, function(error, response, body){
                 if(!error && response.statusCode === 200){
@@ -82,6 +85,7 @@ request(bandUrl, function(error, response, body){
     
     if(!error && response.statusCode === 200){
         var artistInfo = JSON.parse(body);
+        console.log(artistInfo)
         console.log(`
         Location:      ${artistInfo[0]['venue']['city']}, ${artistInfo[0]['venue']['region']}, ${artistInfo[0]['venue']['country']}
         Venue Name:    ${artistInfo[0]['venue']['name']},
