@@ -76,6 +76,7 @@ request(bandUrl, function(error, response, body){
         console.log(`
         Location:      ${artistInfo[0]['venue']['city']}, ${artistInfo[0]['venue']['region']}, ${artistInfo[0]['venue']['country']}
         Venue Name:    ${artistInfo[0]['venue']['name']},
+        //have to add moment for this to change format to mm/dd/yyyy
         Event Date:    ${artistInfo[0]['datetime']},
 
         `)
