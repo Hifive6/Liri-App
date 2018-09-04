@@ -75,6 +75,9 @@ request(bandUrl, function(error, response, body){
         var artistInfo = JSON.parse(body);
         console.log(`
         Location:      ${artistInfo[0]['venue']['city']}, ${artistInfo[0]['venue']['region']}, ${artistInfo[0]['venue']['country']}
+        Venue Name:    ${artistInfo[0]['venue']['name']},
+        Event Date:    ${artistInfo[0]['datetime']},
+
         `)
     }
 })
