@@ -3,12 +3,12 @@ require("dotenv").config();
 // var spotify = require("./keys.js");
 
 var request = require("request");
-var inputString = procsss.argv;
+var inputString = process.argv;
 var operand = inputString[2];
 var userInput = inputString[3]
 
 var inputName = "";
-for(var i=2; i< Userinput.length; i++){
+for(var i=2; i< userInput.length; i++){
     if (i > 2 && i < userInput.length){
         inputName = inputName + "+" + userInput[i];
     }else{
@@ -19,11 +19,11 @@ for(var i=2; i< Userinput.length; i++){
 if (operand === "movie-this"){
     movieIt();
 }else if(operand === "concert-this"){
-    theBand();
+    concertIt();
 
 }
 function movieIt(){
-var movieUrl = "http://www.omdbapi.com/?t="+ movieName + "&apikey=trilogy"
+var movieUrl = "http://www.omdbapi.com/?t="+ inputName + "&apikey=trilogy"
 
 request(movieUrl, function(error, response, body){
     
@@ -75,8 +75,8 @@ request(movieUrl, function(error, response, body){
 //         artist += bandArgs[i];
 //     }
 // }
-function theBand(){
-var bandUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
+function concertIt(){
+var bandUrl = "https://rest.bandsintown.com/artists/" + inputName + "/events?app_id=codingbootcamp"
 
 request(bandUrl, function(error, response, body){
     
