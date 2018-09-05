@@ -1,12 +1,32 @@
 require("dotenv").config();
-
+var request = require("request");
 var keyFile = require("./keys.js");
-console.log(keyFile);
+
 var spotify = new Spotify(keys.spotify)
 
-console.log(spotify)
+var songArg = process.argv;
+var songName = " ";
 
-// var request = require("request");
+for(var i=0; i< songArg.length; i++){
+        if (i > 3 && i < songArg.length){
+            songName = songName + "+" + songArg[i];
+            
+        }else{
+            songName += songArg[i];
+            
+        }
+    }
+var spotUrl = "https://api.spotify.com/v1/artists/" + keyFile +"/albums";
+request(spotUrl, function(error, response, body){
+        
+         if(!error && response.statusCode === 200){
+             var songInfo = JSON.parse(body);
+             console.log(songInfo)
+            
+         }
+        })
+        
+
 // var inputString = process.argv;
 // var operand = inputString[2];
 // var userInput = inputString[3];
