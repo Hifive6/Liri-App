@@ -2,12 +2,16 @@ require("dotenv").config();
 var request = require("request");
 var Spotify = require('node-spotify-api');
 var keyFile = require("./keys.js");
-console.log (keyFile)
+var inputString = process.argv;
+var operand = inputString[2];
+var inputName = inputString.slice(3).join(" ");
 // // for (var key in keyFile){
 // //     console.log(key + keyFile.spotify)
 // // }
 var spotify = new Spotify(keyFile.spotify)
-console.log(spotify);
+// console.log(spotify)
+
+
 
 // songArg = process.argv;
 // var songName = " ";
@@ -21,21 +25,32 @@ console.log(spotify);
             
 //          }
 //      }
-// var spotUrl = "https://api.spotify.com/v1/6rqhFgbbKwnb9MLmUQDhG6"
+var spotifyIt = function(){
+    spotify.search({
+    type: 'artist',
+    query: inputName
+    }, function(err, data) {
+    console.log("******Spotify Response******");
+    console.log(data);
+    
+    if (err) {
+    console.log(err);
+    
+}
+    })}
+// var spotUrl = "https://api.spotify.com/v1/search?q=" + inputName + "&" + spotify;
 // console.log(spotUrl)
 // request(spotUrl, function(error, response, body){
         
-//          if(!error && response.statusCode === 200){
-//              var songInfo = JSON.parse(body);
-//              console.log(songInfo)
+        //   if(!error && response.statusCode === 200){
+        //       var songInfo = JSON.parse(body);
+        //       console.log(songInfo)
             
-//          }
-//         })
-        
+        //   }
+        //  })
+        // }
 
-var inputString = process.argv;
-var operand = inputString[2];
-var inputName = inputString.slice(3).join(" ");
+
 
 
 // var inputName = "";
@@ -54,7 +69,10 @@ if (operand === "movie-this"){
 }else if(operand === "concert-this"){
     concertIt();
 
+}else if(operand === "spotify-this"){
+    spotifyIt()
 }
+
 function movieIt(){
 var movieUrl = "http://www.omdbapi.com/?t="+ inputName + "&apikey=trilogy"
 
@@ -74,7 +92,7 @@ request(movieUrl, function(error, response, body){
         Country Produced in:      ${nobodyMovie['Country']}
         Language:                 ${nobodyMovie['Language']}
         Actors:                   ${nobodyMovie['Actors']}
-        Plot:                     ${nobodyMovie['Plot']}
+        Plot:                     \n${nobodyMovie['Plot']}
           
                     `);
                 }
@@ -115,7 +133,7 @@ request(bandUrl, function(error, response, body){
     
     if(!error && response.statusCode === 200){
         var artistInfo = JSON.parse(body);
-        console.log(artistInfo)
+        
         console.log(`
         Location:      ${artistInfo[0]['venue']['city']}, ${artistInfo[0]['venue']['region']}, ${artistInfo[0]['venue']['country']}
         Venue Name:    ${artistInfo[0]['venue']['name']},
