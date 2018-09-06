@@ -1,34 +1,29 @@
 require("dotenv").config();
+//Grabbing data api and key.js
 var request = require("request");
 var Spotify = require('node-spotify-api');
 var keyFile = require("./keys.js");
+var fs = require('fs');
+//my arguements arrary
 var inputString = process.argv;
 var operand = inputString[2];
 var inputName = inputString.slice(3).join(" ");
-// // for (var key in keyFile){
-// //     console.log(key + keyFile.spotify)
-// // }
+//if else statements to call the correct command
+if (operand === "movie-this"){
+    movieIt();
+}else if(operand === "concert-this"){
+    concertIt();
 
-// console.log(spotify)
+}else if(operand === "spotify-this"){
+    spotifyIt()
+}
 
 
-
-// songArg = process.argv;
-// var songName = " ";
-
-// for(var i=0; i< songArg.length; i++){
-//          if (i > 3 && i < songArg.length){
-//              songName = songName + "+" + songArg[i];
-//             console.log(songName)
-//          }else{
-//              songName += songArg[i];
-            
-//          }
-//      }
-var spotifyIt = function(){
+//function for when spotify command will run
+function spotifyIt(){
     var spotify = new Spotify(keyFile.spotify)
     spotify.search({
-    type: 'artist',
+    type: 'track',
     query: inputName
     }, function(err, data) {
     
@@ -39,41 +34,9 @@ var spotifyIt = function(){
     
 }
     })}
-// var spotUrl = "https://api.spotify.com/v1/search?q=" + inputName + "&" + spotify;
-// console.log(spotUrl)
-// request(spotUrl, function(error, response, body){
-        
-        //   if(!error && response.statusCode === 200){
-        //       var songInfo = JSON.parse(body);
-        //       console.log(songInfo)
-            
-        //   }
-        //  })
-        // }
 
 
-
-
-// var inputName = "";
-// for(var i=0; i< userInput.length; i++){
-//     if (i > 3 && i < userInput.length){
-//         inputName = inputName + "+" + userInput[i];
-        
-//     }else{
-//         inputName += userInput[i];
-        
-//     }
-// }
-
-if (operand === "movie-this"){
-    movieIt();
-}else if(operand === "concert-this"){
-    concertIt();
-
-}else if(operand === "spotify-this"){
-    spotifyIt()
-}
-
+//function for when the movie command will run
 function movieIt(){
 var movieUrl = "http://www.omdbapi.com/?t="+ inputName + "&apikey=trilogy"
 
@@ -81,7 +44,7 @@ request(movieUrl, function(error, response, body){
     
     if(!error && response.statusCode === 200){
         var movieInfo = JSON.parse(body);
-        if (inputName == false){
+        if (!inputName){
             nobodyUrl = "http://www.omdbapi.com/?t=mr+nobody&y=&plot=short&apikey=trilogy"
             request(nobodyUrl, function(error, response, body){
                 if(!error && response.statusCode === 200){
@@ -117,16 +80,7 @@ request(movieUrl, function(error, response, body){
     }
 })
 }
-// var bandArgs = process.argv;
-// var artist = "";
-
-// for(var i=2; i< bandArgs.length; i++){
-//     if (i > 2 && i < bandArgs.length){
-//         artist = artist + "+" + bandArgs[i];
-//     }else{
-//         artist += bandArgs[i];
-//     }
-// }
+//function for when the concert command is ran
 function concertIt(){
 var bandUrl = "https://rest.bandsintown.com/artists/" + inputName + "/events?app_id=codingbootcamp"
 
