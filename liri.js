@@ -8,7 +8,7 @@ var inputName = inputString.slice(3).join(" ");
 // // for (var key in keyFile){
 // //     console.log(key + keyFile.spotify)
 // // }
-var spotify = new Spotify(keyFile.spotify)
+
 // console.log(spotify)
 
 
@@ -26,11 +26,12 @@ var spotify = new Spotify(keyFile.spotify)
 //          }
 //      }
 var spotifyIt = function(){
+    var spotify = new Spotify(keyFile.spotify)
     spotify.search({
     type: 'artist',
     query: inputName
     }, function(err, data) {
-    console.log("******Spotify Response******");
+    
     console.log(data);
     
     if (err) {
