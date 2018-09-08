@@ -1,16 +1,18 @@
 require("dotenv").config();
+
 //Grabbing data api and key.js
-
 var Spotify = require('node-spotify-api');
-
 var keys = require("./keys.js");
 var fs = require('fs');
 var request = require("request");
+
 //my arguements arrary
 var inputString = process.argv;
 var operand = inputString[2];
 var inputName = inputString.slice(3).join(" ");
 var spotify = new Spotify(keys.spotify)
+
+
 //if else statements to call the correct command
 if (operand === "movie-this") {
     movieIt();
@@ -29,10 +31,7 @@ if (operand === "movie-this") {
 
 //function for when spotify command will run
 function spotifyIt(inputName) {
-    // var spotify = new Spotify(keys.spotify
-    // //     id: <your spotify client id>,
-    // //     secret: <your spotify client secret>
-    // //   });
+    //if statement if there is not song placed after the command
 if(!inputName){
                inputName = "Ace of Base, The Sign" 
             }
@@ -48,11 +47,14 @@ if(!inputName){
             return;
         } console.log(`
             
-            
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
             Artist Name:        ${data['tracks']['items'][0]['artists'][0]['name']}
             Album Name:         ${data['tracks']['items'][0]['album']['name']}
             Song Name:          ${data['tracks']['items'][0]['name']}
             Preview Url:        ${data['tracks']['items'][0]['preview_url']}
+
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             `)
 
 
@@ -71,12 +73,15 @@ function movieIt() {
 
         if (!error && response.statusCode === 200) {
             var movieInfo = JSON.parse(body);
+            //if statement for when there is movie add with command
             if (!inputName) {
                 nobodyUrl = "http://www.omdbapi.com/?t=mr+nobody&y=&plot=short&apikey=trilogy"
                 request(nobodyUrl, function (error, response, body) {
                     if (!error && response.statusCode === 200) {
                         var nobodyMovie = JSON.parse(body);
                         console.log(`
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
         Title:                    ${nobodyMovie['Title']} (${nobodyMovie['Year']})
         IMDB Rating:              ${nobodyMovie['imdbRating']}
         Rotten Tomatoes Rating:   ${nobodyMovie['Ratings'][1]['Value']}
@@ -84,7 +89,8 @@ function movieIt() {
         Language:                 ${nobodyMovie['Language']}
         Actors:                   ${nobodyMovie['Actors']}
         Plot:                     \n${nobodyMovie['Plot']}
-          
+         
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     `);
                     }
                 })
@@ -93,6 +99,9 @@ function movieIt() {
             } else {
 
                 console.log(`
+
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
        Title:                    ${movieInfo['Title']} (${movieInfo['Year']})
        IMDB Rating:              ${movieInfo['imdbRating']}
        Rotten Tomatoes Rating:   ${movieInfo['Ratings'][1]['Value']}
@@ -100,7 +109,9 @@ function movieIt() {
        Language:                 ${movieInfo['Language']}
        Actors:                   ${movieInfo['Actors']}
        Plot:                     \n${movieInfo['Plot']}
-            
+       
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
        `)
             }
 
@@ -110,18 +121,29 @@ function movieIt() {
 //function for when the concert command is ran
 function concertIt() {
     var bandUrl = "https://rest.bandsintown.com/artists/" + inputName + "/events?app_id=codingbootcamp"
+    if(!inputName){
+            console.log(`
 
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            "Please add a band or artist"
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            `)
+    }
     request(bandUrl, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
             var artistInfo = JSON.parse(body);
-
+        
+        
             console.log(`
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
         Location:      ${artistInfo[0]['venue']['city']}, ${artistInfo[0]['venue']['region']}, ${artistInfo[0]['venue']['country']}
         Venue Name:    ${artistInfo[0]['venue']['name']},
         //have to add moment for this to change format to mm/dd/yyyy
         Event Date:    ${artistInfo[0]['datetime']},
 
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         `)
         }
     })
