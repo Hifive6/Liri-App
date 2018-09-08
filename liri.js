@@ -96,7 +96,8 @@ function movieIt() {
                     `));
                     }
                 })
-                console.log("If you haven't Watch Mr.Nobody you should, it's on Netflix!")
+                console.log(chalk.cyan(`
+                ${"If you haven't watched Mr.Nobody you should, it's on Netflix!"}`))
                 //this info is for the movie entered by the user
             } else {
 
