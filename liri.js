@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 //Grabbing data api and key.js
+var moment = require("moment")
 var Spotify = require('node-spotify-api');
 var keys = require("./keys.js");
 var fs = require('fs');
@@ -22,7 +23,7 @@ if (operand === "movie-this") {
 } else if (operand === "spotify-this") {
     spotifyIt(inputName)
 
-}else if (operand === "do-what-it-says") {
+} else if (operand === "do-what-it-says") {
     doWhat();
 } else {
     console.log("Please enter a command: movie-this, concert-this, spotify-this, do-what-it-ways.")
@@ -32,16 +33,16 @@ if (operand === "movie-this") {
 //function for when spotify command will run
 function spotifyIt(inputName) {
     //if statement if there is not song placed after the command
-if(!inputName){
-               inputName = "Ace of Base, The Sign" 
-            }
+    if (!inputName) {
+        inputName = "Ace of Base, The Sign"
+    }
     spotify.search({
         type: 'track',
         query: inputName,
         limit: 1,
     }, function (err, data) {
         if (err) {
-            
+
 
             console.log("error occured" + err);
             return;
@@ -94,8 +95,8 @@ function movieIt() {
                     `);
                     }
                 })
-
                 console.log("If you haven't Watch Mr.Nobody you should, it's on Netflix!")
+                //this info is for the movie entered by the user
             } else {
 
                 console.log(`
@@ -121,8 +122,9 @@ function movieIt() {
 //function for when the concert command is ran
 function concertIt() {
     var bandUrl = "https://rest.bandsintown.com/artists/" + inputName + "/events?app_id=codingbootcamp"
-    if(!inputName){
-            console.log(`
+    //if statment to prompt user to add a band or artist to bring up the tour info
+    if (!inputName) {
+        console.log(`
 
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             "Please add a band or artist"
@@ -133,9 +135,9 @@ function concertIt() {
 
         if (!error && response.statusCode === 200) {
             var artistInfo = JSON.parse(body);
-        
-        
-            console.log(`
+            var time = Date.parse(artist[0].datetime)
+            console.log(time)
+            console.log( `
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         Location:      ${artistInfo[0]['venue']['city']}, ${artistInfo[0]['venue']['region']}, ${artistInfo[0]['venue']['country']}
@@ -149,27 +151,19 @@ function concertIt() {
     })
 }
 //this function will run when the do what it says command is ran
-function doWhat() {fs.readFile("random.txt", "utf8", function(error, data) {
+function doWhat() {
+    fs.readFile("random.txt", "utf8", function (error, data) {
 
-    
-    if (error) {
-      return console.log(error);
-    }
-  
-    
-    //console.log(data);
-  
-    var data = data.replace('\"', " ")
-    data = data.replace("\"", " ")
-    var textInfo = data.split(",");
-    spotifyIt(textInfo[1]);
-    
-  
-    
-    
-  
-  });
-    
+
+        if (error) {
+            return console.log(error);
+        }
+        var data = data.replace('\"', " ")
+        data = data.replace("\"", " ")
+        var textInfo = data.split(",");
+        spotifyIt(textInfo[1]);
+    });
+
 }
 
 
