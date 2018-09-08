@@ -135,8 +135,10 @@ function concertIt() {
 
         if (!error && response.statusCode === 200) {
             var artistInfo = JSON.parse(body);
-            var time = Date.parse(artist[0].datetime)
-            console.log(time)
+            var time = (Date.parse(artistInfo[0].datetime))
+            //var time = artistInfo[0].datetime
+            eventTime = moment(time).format("MMM dd YYYY")
+            console.log(eventTime)
             console.log( `
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
