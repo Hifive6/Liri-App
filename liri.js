@@ -27,26 +27,31 @@ if (operand === "movie-this") {
 
 
 //function for when spotify command will run
-function spotifyIt (inputName) {
+function spotifyIt(inputName) {
     // var spotify = new Spotify(keys.spotify
     // //     id: <your spotify client id>,
     // //     secret: <your spotify client secret>
     // //   });
-    
+
     spotify.search({
         type: 'track',
         query: inputName,
-        limit : 1,
+        limit: 1,
     }, function (err, data) {
         if (err) {
-            console.log(data)
+
             console.log("error occured" + err);
             return;
-        }
-       
-        console.log(data.tracks.items[0].artists[0].name);
+        } console.log(`
+            
+            
+            Title:              ${data['tracks']['items'][0]['artists'][0]['name']}
+            Album Name:         ${data['tracks']['items'][0]['album']['name']}
+            Song Name:          ${data['tracks']['items'][0]['name']}
+            Preview Url:        ${data['tracks']['items'][0]['preview_url']}
+            `)
 
-    
+
     })
 }
 
