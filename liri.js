@@ -123,11 +123,27 @@ function concertIt() {
     })
 }
 //this function will run when the do what it says command is ran
-function doWhat() {
-    fs.readFile("random.txt", "utf8", function (error, data) {
-        var text = data;
-        console.log(text)
-    })
+function doWhat() {fs.readFile("random.txt", "utf8", function(error, data) {
+
+    
+    if (error) {
+      return console.log(error);
+    }
+  
+    
+    //console.log(data);
+  
+    var data = data.replace('\"', " ")
+    data = data.replace("\"", " ")
+    var textInfo = data.split(",");
+    
+    
+  
+    
+    console.log(textInfo[1]);
+  
+  });
+    
 }
 
 
