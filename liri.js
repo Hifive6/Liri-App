@@ -19,7 +19,8 @@ if (operand === "movie-this") {
 
 } else if (operand === "spotify-this") {
     spotifyIt(inputName)
-} else if (operand === "do-what-it-says") {
+
+}else if (operand === "do-what-it-says") {
     doWhat();
 } else {
     console.log("Please enter a command: movie-this, concert-this, spotify-this, do-what-it-ways.")
@@ -32,20 +33,23 @@ function spotifyIt(inputName) {
     // //     id: <your spotify client id>,
     // //     secret: <your spotify client secret>
     // //   });
-
+if(!inputName){
+               inputName = "Ace of Base, The Sign" 
+            }
     spotify.search({
         type: 'track',
         query: inputName,
         limit: 1,
     }, function (err, data) {
         if (err) {
+            
 
             console.log("error occured" + err);
             return;
         } console.log(`
             
             
-            Title:              ${data['tracks']['items'][0]['artists'][0]['name']}
+            Artist Name:        ${data['tracks']['items'][0]['artists'][0]['name']}
             Album Name:         ${data['tracks']['items'][0]['album']['name']}
             Song Name:          ${data['tracks']['items'][0]['name']}
             Preview Url:        ${data['tracks']['items'][0]['preview_url']}
@@ -136,11 +140,11 @@ function doWhat() {fs.readFile("random.txt", "utf8", function(error, data) {
     var data = data.replace('\"', " ")
     data = data.replace("\"", " ")
     var textInfo = data.split(",");
-    
+    spotifyIt(textInfo[1]);
     
   
     
-    console.log(textInfo[1]);
+    
   
   });
     
