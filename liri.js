@@ -34,7 +34,7 @@ function spotifyIt (inputName) {
     // //   });
     
     spotify.search({
-        type: 'album',
+        type: 'track',
         query: inputName,
         limit : 1,
     }, function (err, data) {
@@ -44,7 +44,7 @@ function spotifyIt (inputName) {
             return;
         }
        
-        console.log(data.albums.items[0]);
+        console.log(data.tracks.items[0].artists[0].name);
 
     
     })
