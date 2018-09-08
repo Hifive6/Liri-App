@@ -6,6 +6,7 @@ var Spotify = require('node-spotify-api');
 var keys = require("./keys.js");
 var fs = require('fs');
 var request = require("request");
+const chalk = require("chalk")
 
 //my arguements arrary
 var inputString = process.argv;
@@ -46,7 +47,7 @@ function spotifyIt(inputName) {
 
             console.log("error occured" + err);
             return;
-        } console.log(`
+        } console.log(chalk.magentaBright(`
             
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -56,7 +57,7 @@ function spotifyIt(inputName) {
             Preview Url:        ${data['tracks']['items'][0]['preview_url']}
 
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            `)
+            `))
 
 
     })
@@ -80,7 +81,7 @@ function movieIt() {
                 request(nobodyUrl, function (error, response, body) {
                     if (!error && response.statusCode === 200) {
                         var nobodyMovie = JSON.parse(body);
-                        console.log(`
+                        console.log(chalk.red(`
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         Title:                    ${nobodyMovie['Title']} (${nobodyMovie['Year']})
@@ -92,14 +93,14 @@ function movieIt() {
         Plot:                     \n${nobodyMovie['Plot']}
          
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    `);
+                    `));
                     }
                 })
                 console.log("If you haven't Watch Mr.Nobody you should, it's on Netflix!")
                 //this info is for the movie entered by the user
             } else {
 
-                console.log(`
+                console.log(chalk.green(`
 
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -113,7 +114,7 @@ function movieIt() {
        
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-       `)
+       `))
             }
 
         }
@@ -124,22 +125,22 @@ function concertIt() {
     var bandUrl = "https://rest.bandsintown.com/artists/" + inputName + "/events?app_id=codingbootcamp"
     //if statment to prompt user to add a band or artist to bring up the tour info
     if (!inputName) {
-        console.log(`
+        console.log(chalk.yellow(`
 
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             "Please add a band or artist"
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            `)
+            `))
+            
     }
     request(bandUrl, function (error, response, body) {
+        
+        if (!error && response.statusCode === 200) 
 
-        if (!error && response.statusCode === 200) {
-            var artistInfo = JSON.parse(body);
+          var artistInfo = JSON.parse(body);
             var time = (Date.parse(artistInfo[0].datetime))
-            //var time = artistInfo[0].datetime
             eventTime = moment(time).format("MMM Do YYYY")
-            console.log(eventTime)
-            console.log( `
+            console.log(chalk.blueBright(`
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         Location:      ${artistInfo[0]['venue']['city']}, ${artistInfo[0]['venue']['region']}, ${artistInfo[0]['venue']['country']}
@@ -147,8 +148,9 @@ function concertIt() {
         Event Date:    ${eventTime},
 
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        `)
-        }
+        `))
+        
+        
     })
 }
 //this function will run when the do what it says command is ran
