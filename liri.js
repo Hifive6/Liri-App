@@ -18,7 +18,7 @@ if (operand === "movie-this") {
     concertIt();
 
 } else if (operand === "spotify-this") {
-    getSpotify()
+    spotifyIt(inputName)
 } else if (operand === "do-what-it-says") {
     doWhat();
 } else {
@@ -27,22 +27,24 @@ if (operand === "movie-this") {
 
 
 //function for when spotify command will run
-function getSpotify (inputName) {
+function spotifyIt (inputName) {
     // var spotify = new Spotify(keys.spotify
     // //     id: <your spotify client id>,
     // //     secret: <your spotify client secret>
     // //   });
     
     spotify.search({
-        type: 'artist',
-        query: inputName
+        type: 'album',
+        query: inputName,
+        limit : 1,
     }, function (err, data) {
         if (err) {
+            console.log(data)
             console.log("error occured" + err);
             return;
         }
-        var artistInfo = data.artist.items
-        console.log("logging data " + artistInfo);
+       
+        console.log(data.albums.items[0]);
 
     
     })
