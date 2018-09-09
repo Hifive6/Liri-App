@@ -10,6 +10,7 @@ How it Works
 Each command when called in the command line and a given a topic with the command would then output information.
 
 node liri.js concert-this <artist/band name here>
+
 Would provide you with this information
 
 * Name of the venue
@@ -17,7 +18,8 @@ Would provide you with this information
 * Date of the Event (use moment to format this as "MM/DD/YYYY")
 
 node liri.js spotify-this-song '<song name here>'
-Information provide would be
+
+Information provided would be
 
 Artist(s)
 * The song's name
