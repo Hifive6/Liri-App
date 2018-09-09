@@ -139,6 +139,7 @@ function concertIt() {
         if (!error && response.statusCode === 200) 
 
           var artistInfo = JSON.parse(body);
+          
             var time = (Date.parse(artistInfo[0].datetime))
             eventTime = moment(time).format("MMM Do YYYY")
             console.log(chalk.blueBright(`
