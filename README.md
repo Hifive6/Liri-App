@@ -7,7 +7,7 @@ This application was created as an assignment for week 10, using Node.js. The as
 <do-what-it-says>
 
 How it Works
-Each command when called in the command and a given a topic with the command would then output information.
+Each command when called in the command line and a given a topic with the command would then output information.
 
 node liri.js concert-this <artist/band name here>
 Would provide you with this information
@@ -25,6 +25,7 @@ Artist(s)
 * The album that the song is from
 
 node liri.js movie-this '<movie name here>'
+
 Information provided would be
    * Title of the movie.
    * Year the movie came out.
@@ -36,14 +37,16 @@ Information provided would be
    * Actors in the movie.
 
 node liri.js do-what-it-says
+
 LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
+
 Liri will take the information and spotify it
 
 Tech used
-Node.js
-Request NPM Package
-Spotify NPM Package
-Moment NPM Package
-Chalk NPM Package
+    *   Node.js
+    *   Request NPM Package
+    *   Spotify NPM Package
+    *   Moment NPM Package
+    *   Chalk NPM Package
 
 David Juarez was the only contributor
