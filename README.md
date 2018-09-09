@@ -43,10 +43,10 @@ LIRI will take the text inside of random.txt and then use it to call one of LIRI
 Liri will take the information and spotify it
 
 Tech used
-    *   Node.js
-    *   Request NPM Package
-    *   Spotify NPM Package
-    *   Moment NPM Package
-    *   Chalk NPM Package
+*   Node.js
+*   Request NPM Package
+*   Spotify NPM Package
+*   Moment NPM Package
+*   Chalk NPM Package
 
 David Juarez was the only contributor
