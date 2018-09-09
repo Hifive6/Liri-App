@@ -7,6 +7,7 @@ This application was created as an assignment for week 10, using Node.js. The as
 <do-what-it-says>
 
 How it Works
+
 Each command when called in the command line and a given a topic with the command would then output information.
 
 node liri.js concert-this <artist/band name here>
