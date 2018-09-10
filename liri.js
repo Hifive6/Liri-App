@@ -27,8 +27,12 @@ if (operand === "movie-this") {
 } else if (operand === "do-what-it-says") {
     doWhat();
 } else {
-    console.log("Please enter a command: movie-this, concert-this, spotify-this, do-what-it-ways.")
-}
+    console.log(chalk.yellow(`
+
+    "Please enter a command: movie-this, concert-this, spotify-this, do-what-it-ways."
+
+    `))
+};
 
 
 //function for when spotify command will run
